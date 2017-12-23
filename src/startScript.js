@@ -2,6 +2,7 @@ var myLayer;
 var geoStations;
 var mymap;
 var yearSet = 1855;
+var polyline = [];
 
 function onEachFeature(feature, layer){
     layer.bindPopup(feature.properties.popupContent);
@@ -33,6 +34,9 @@ function showMap() {
 
 function rendreraSkiten(geoS){
     var stations = [];
+    for(ii = 0; ii < polyline.length ; ii++ ) {
+	mymap.removeLayer(polyline[ii]);
+    }
     for(i = 0; i < geoS.length ; i++){
 	for(j=0 ; j < geoS[i].length ; j++){
             stations.push(geoS[i][j]);
@@ -41,16 +45,18 @@ function rendreraSkiten(geoS){
     myLayer = L.geoJSON(stations,{onEachFeature: onEachFeature, filter:filtrera}).addTo(mymap);
 
     for(t = 0; t < geoS.length; t++){
-        c = [];
+	c = [];
         for(q = 0; q < geoS[t].length ; q++ ) {
 	    pathCoords = geoS[t][q].geometry.coordinates;
-            c.push([pathCoords[0],pathCoords[1]]);
+	    year = geoS[t][q].properties.year;
+	    year = parseInt(year.split("-")[0])
+	    if (year <= yearSet){
+		c.push([pathCoords[1],pathCoords[0]]);
+            }
         }
-        //console.log(c);
-        line = L.polyline(c,{color: 'red', weight: 12});
-	geoline = line.toGeoJSON();
-	L.geoJSON(geoline).addTo(mymap);
+	polyline.push(L.polyline(c).addTo(mymap));
     }
+
 }
 
 function applyFiltery(yearIn) {
