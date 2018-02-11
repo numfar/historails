@@ -8,12 +8,14 @@ class FileCoordinatesExtractorTest(unittest.TestCase):
 
     def test_extract_routes(self):
         coord_ext = FileCoordinatesExtractor()
-        routes = coord_ext.extract_routes('test/coords_test_import.csv')
-        self.assertEqual(1,len(routes))
-        # = routes[0].stops[0]
-        #self.assertEquals('Slut1',ro
+        route = coord_ext.extract_route('test/coords_test_import.csv')
+        self.assertEqual(2,len(route.stops))
+        stop1 = route.stops[0]
+        stop2 = route.stops[1]
+        self.assertEquals('Slut1',stop1.name)
+        self.assertEquals(1,stop1.x)
+        self.assertEquals(34,stop1.y)
+        self.assertEquals(4,stop2.x)
+        self.assertEquals(45,stop2.y)
+        self.assertEquals('Slut2',stop2.name)
 
-    def test_extract_mult_routes(self):
-        coord_ext = FileCoordinatesExtractor()
-        routes = coord_ext.extract_routes('test/coords_test_import_mult.csv')
-        self.assertEquals(3,len(routes))

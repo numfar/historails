@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+import re
 
 class TrainStopp(object):
 
-    def __init__(self,x,y,name):
+    def __init__(self,name,x,y):
+        self.name = name
         self.x = x
         self.y = y
-        self.name = name
 
 class Route(object):
 
@@ -15,9 +16,11 @@ class Route(object):
 
 class FileCoordinatesExtractor(object):
 
-    def extract_routes(self,filename):
-        routes = []
+    def extract_route(self,filename):
+        route = Route(filename)
         with open(filename,'r') as fileStream:
             for line in fileStream.readlines():
-                routes.append(line)
-        return routes
+                cols = line.split(',')
+                stop = TrainStopp(cols[0],int(cols[1]),int(cols[2]))
+                route.stops.append(stop)
+        return route
