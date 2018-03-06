@@ -2,7 +2,7 @@
 import sys
 import re
 
-from trainyobjects import TrainStopp, Route, Connection
+from model.trainyobjects import TrainStopp, Route, Connection
 
 class FileCoordinatesExtractor(object):
 

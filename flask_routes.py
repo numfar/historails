@@ -4,8 +4,10 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
 
-from file_coordinates_extractor import TrainStopp, Route, FileCoordinatesExtractor
-from cruddymodule import Crudder
+from util.file_coordinates_extractor import FileCoordinatesExtractor
+from model.trainyobjects import TrainStopp, Route
+
+from crud.cruddymodule import Crudder
 
 UPLOAD_FOLDER = '/data/trainy/uploads' 
 ALLOWED_EXTENSIONS = set(['csv','txt'])

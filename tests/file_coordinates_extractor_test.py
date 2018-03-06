@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from src.routy.file_coordinates_extractor import FileCoordinatesExtractor
+from util.file_coordinates_extractor import FileCoordinatesExtractor
 
 import unittest
 
@@ -8,7 +8,7 @@ class FileCoordinatesExtractorTest(unittest.TestCase):
 
     def test_extract_routes(self):
         coord_ext = FileCoordinatesExtractor()
-        route = coord_ext.extract_route('test/coords_test_import.csv')
+        route = coord_ext.extract_route('tests/coords_test_import.csv')
         self.assertEquals('Route 1',route.name)
         self.assertEqual(1,len(route.connections))
         stop1 = route.connections[0].node1

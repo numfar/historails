@@ -1,4 +1,4 @@
-from file_coordinates_extractor import FileCoordinatesExtractor
+from util.file_coordinates_extractor import FileCoordinatesExtractor
 #from trainyobjects import TrainStopp, Route, Connection
 import sys
 import sqlite3
