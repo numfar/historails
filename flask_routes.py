@@ -2,6 +2,7 @@ import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import send_from_directory
+from flask import render_template
 from werkzeug.utils import secure_filename
 
 from util.file_coordinates_extractor import FileCoordinatesExtractor
@@ -68,7 +69,7 @@ def upload_file():
 
 @app.route('/comfirm-route/<filename>')
 def confirm_route(filename):
-    conn = sqlite3.connect('routy/route.db')
+    conn = sqlite3.connect('route.db')
     db = conn.cursor()
     crudder = Crudder(db)
     extractor = FileCoordinatesExtractor()
@@ -77,10 +78,14 @@ def confirm_route(filename):
     conn.commit()
     html = '<h3>Added route: ' + added_route.name + '</h3>'
     html += '<ul>'
+    entries = []
     for conn in added_route.connections:
+        ent = conn.node1.name
+        entries.append(ent)
         html += '<li>' + ', '.join([conn.node1.name,str(conn.node1.longitude),str(conn.node1.latitude)]) + ' | ' + ', '.join([conn.node2.name,str(conn.node2.longitude),str(conn.node2.latitude)]) + '</li>'
     html += '</ul>'
-    return html
+    return render_template('succes.html', entries=entries)
+    #return html
 
 @app.route('/add',methods=['POST'])
 def add_single_route():
