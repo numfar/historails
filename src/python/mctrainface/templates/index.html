@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Home{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="slider"></div>
+<label for="year">Drifttaget vid (år):</label>
+<br/>
+<input type="text" id="year" style="border:0; color:#f6931f; font-weight:bold;">
+<div id="mapid"></div>
+
+{% endblock %}

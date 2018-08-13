@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Added route: {{routey.name }} </h3>
+    <ul>
+      {% for conn in routey.connections %}
+      <li> {{ conn.node1.name}} , {{conn.node1.longitude}} ,{{conn.node1.latitude}}  | {{conn.node2.name}},{{conn.node2.longitude}},{{conn.node2.latitude }}  </li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}
