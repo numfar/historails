@@ -1,7 +1,7 @@
-from mctrainface.util.file_coordinates_extractor import FileCoordinatesExtractor
-#from trainyobjects import TrainStopp, Route, Connection
 import sys
 import sqlite3
+
+from mctrainface.util.file_coordinates_extractor import FileCoordinatesExtractor
 
 class Crudder(object):
 
@@ -27,13 +27,3 @@ class Crudder(object):
             sql_c = "insert into connections ('node1','node2','route') values ('{}','{}','{}')".format(id_r,id_c_x,id_c_y)
             self.db.execute(sql_c)
         return route
-
-if __name__ == '__main__':
-    pathy = sys.argv[1]
-    ext = FileCoordinatesExtractor()
-    route = ext.extract_route(pathy)
-    conn = sqlite3.connect('src/routy/route.db')
-    db = conn.cursor()
-    crud = Crudder(db)
-    crud.add_route(route)
-    conn.commit()
