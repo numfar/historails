@@ -8,7 +8,7 @@ function onEachFeature(feature, layer){
     layer.bindPopup(feature.properties.popupContent);
 }
 
-function filtrera(feature,layer){
+function filterFeature(feature, layer){
 
     if(feature.properties.year.substring(0,4) > yearSet){
         return 0;
@@ -17,22 +17,21 @@ function filtrera(feature,layer){
     return 1;
 }
 
-function showMap() {
+function showMap(accesstoken) {
     mymap = L.map('mapid').setView([58.3251172, 15.0710935], 6);
-    var accessToken = 'pk.eyJ1IjoibnVtZmFyIiwiYSI6ImNqN2F2NXdhcjBlcGMzMnN0a2wxaDd3YnoifQ.HZKACURfmAwSBLKkGVOprA';
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		maxZoom: 18,
 		id: 'mapbox.streets',
-		accessToken: 'pk.eyJ1IjoibnVtZmFyIiwiYSI6ImNqN2F2NXdhcjBlcGMzMnN0a2wxaDd3YnoifQ.HZKACURfmAwSBLKkGVOprA'
+		accessToken: accesstoken
 		}).addTo(mymap);
 
     geoStations = getPoints();
-    rendreraSkiten(geoStations);
+    renderRouteMap(geoStations);
   
 }
 
-function rendreraSkiten(geoS){
+function renderRouteMap(geoS){
     var stations = [];
     for(ii = 0; ii < polyline.length ; ii++ ) {
 	mymap.removeLayer(polyline[ii]);
@@ -42,7 +41,7 @@ function rendreraSkiten(geoS){
             stations.push(geoS[i][j]);
         }
     }
-    myLayer = L.geoJSON(stations,{onEachFeature: onEachFeature, filter:filtrera}).addTo(mymap);
+    myLayer = L.geoJSON(stations,{onEachFeature: onEachFeature, filter:filterFeature}).addTo(mymap);
 
     for(t = 0; t < geoS.length; t++){
 	c = [];
@@ -59,14 +58,8 @@ function rendreraSkiten(geoS){
 
 }
 
-function applyFiltery(yearIn) {
+function applyYearFilter(yearIn) {
     myLayer.clearLayers();
     yearSet = yearIn;
-    rendreraSkiten(geoStations);
+    renderRouteMap(geoStations);
 }
-
-$(document).ready( function() {
-	$( "#slider" ).slider();
-	showMap();
-    });
-  
