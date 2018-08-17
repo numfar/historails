@@ -3,8 +3,8 @@ import unittest
 from unittest.mock import Mock, call
 import sqlite3
 
-from mctrainface.crud.cruddymodule import Crudder
-from mctrainface.model.trainyobjects import Route, Connection, TrainStopp
+from app.crud.cruddymodule import Crudder
+from app.model.trainyobjects import Route, Connection, TrainStopp
 
 class CrudderTest(unittest.TestCase):
 

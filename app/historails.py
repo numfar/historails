@@ -3,7 +3,7 @@ import os
 from flask import (
     Blueprint, render_template, current_app
 )
-from mctrainface.auth import login_required
+from app.auth import login_required
 
 bp = Blueprint('historails', __name__)
 

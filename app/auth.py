@@ -7,10 +7,10 @@ from flask import (
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from mctrainface.db import get_db
-from mctrainface.util.file_coordinates_extractor import FileCoordinatesExtractor
-from mctrainface.model.trainyobjects import TrainStopp, Route
-from mctrainface.crud.cruddymodule import Crudder
+from app.db import get_db
+from app.util.file_coordinates_extractor import FileCoordinatesExtractor
+from app.model.trainyobjects import TrainStopp, Route
+from app.crud.cruddymodule import Crudder
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
