@@ -11,12 +11,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='stationsGeoJson.js') }}" ></script>
+
 <script type="text/javascript" src="{{ url_for('static', filename='startScript.js') }}" ></script>
 <script type="text/javascript">
-
-var token = '{{ token }}';
-$(document).ready(function() {
+  $(document).ready(function() {
+  var routey = JSON.parse({{ routes|tojson }});
+  var token = '{{ token }}';
 	 $( "#slider" ).slider({
 		    value:1855,
 			min: 1855,
@@ -28,7 +28,7 @@ $(document).ready(function() {
 		        }
 		});
 	$( "#year" ).val( $( "#slider" ).slider( "value" ) );
-	showMap(token);
+	showMap(token, routey);
     });</script>
 <div id="slider"></div>
 <label for="year">Drifttaget vid (år):</label>

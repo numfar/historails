@@ -1,0 +1,10 @@
+1. Visa rutterna från databasen
+2. Bekräfta ny rutt (karta)
+3. Filtrering i bekräftelse sidan, visa existerande rutter ja/nej
+4. Validering av ny rutt: namn/exakta koordinater finns redan. Omöjlig rutt.
+5. Snyggare sida för lyckad ny rutt
+6. Redigera gamla rutter (med karta eller fil/formulär?)
+7. Info om rutt i sidopanel
+8. Ta bort rutt
+9. Utförligare profilsida
+10. Skapa ny rutt via karta
