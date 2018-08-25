@@ -11,6 +11,10 @@ function filterFeature(feature, layer){
     return true;
 }
 
+function setSlider(){
+    $( "#slider" ).slider( "value", $( "#year" ).val() );
+}
+
 function setupMap(route, token, startYear) {
     $( "#slider" ).slider({
 	value:1855,
@@ -24,6 +28,7 @@ function setupMap(route, token, startYear) {
 	}
     });
     $( "#year" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#year" ).on('input', setSlider);
 
     var mymap = L.map('mapid').setView([58.3251172, 15.0710935], 6);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
