@@ -10,6 +10,7 @@ def create_app(test_config=None):
     )
 
     flaskapp.config['UPLOAD_FOLDER'] = '/data/trainy/uploads'
+    flaskapp.config['FROM_YEAR'] = '1855'    
     flaskapp.config['ACCESS_TOKEN'] = 'pk.eyJ1IjoibnVtZmFyIiwiYSI6ImNqN2F2NXdhcjBlcGMzMnN0a2wxaDd3YnoifQ.HZKACURfmAwSBLKkGVOprA'
     flaskapp.config['ALLOWED_EXTENSIONS'] = set(['csv','txt'])
     if test_config is None:
@@ -31,3 +32,7 @@ def create_app(test_config=None):
     flaskapp.add_url_rule('/', endpoint='index')
 
     return flaskapp
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(debug=True)

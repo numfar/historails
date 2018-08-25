@@ -1,5 +1,4 @@
 import functools
-import sqlite3
 import os
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app, send_from_directory
@@ -9,7 +8,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.db import get_db
 from app.util.file_coordinates_extractor import FileCoordinatesExtractor
-from app.model.trainyobjects import TrainStopp, Route
 from app.crud.cruddymodule import Crudder
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -126,7 +124,7 @@ def addroute():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            return confirm_route(filename)
+            return create_route(filename)
     return render_template('addroute.html')
 
 def allowed_file(filename):
@@ -134,6 +132,9 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
 def confirm_route(filename):
+    pass
+
+def create_route(filename):
     conn = get_db()
     db = conn.cursor()
     crudder = Crudder(db)

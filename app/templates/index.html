@@ -6,34 +6,23 @@
 
 {% block content %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
-
 <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script type="text/javascript" src="{{ url_for('static', filename='startScript.js') }}" ></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='map-setup.js') }}" ></script>
 <script type="text/javascript">
-  $(document).ready(function() {
-  var routey = JSON.parse({{ routes|tojson }});
-  var token = '{{ token }}';
-	 $( "#slider" ).slider({
-		    value:1855,
-			min: 1855,
-			max: 2017,
-			step: 1,
-			slide: function( event, ui ) {
-			    $( "#year" ).val( ui.value );
-			    applyYearFilter( ui.value );
-		        }
-		});
-	$( "#year" ).val( $( "#slider" ).slider( "value" ) );
-	showMap(token, routey);
-    });</script>
+$(document).ready(function() {
+    var routey = JSON.parse({{ routes|tojson }});
+    var accesstoken = '{{ token }}';
+    var year = {{ startYear }};
+    setupMap(routey, accesstoken, year);
+});</script>
 <div id="slider"></div>
 <label for="year">Drifttaget vid (år):</label>
-<br/>
-<input type="text" id="year" style="border:0; color:#f6931f; font-weight:bold;">
+<input type="number" id="year" value="{{startYear}}">
 <div id="mapid"></div>
 
 {% endblock %}

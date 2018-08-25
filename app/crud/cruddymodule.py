@@ -32,15 +32,15 @@ class Crudder(object):
         routes = []
         sql_all_r = "SELECT id,route_name FROM route r"
         for row in self.db.execute(sql_all_r).fetchall():
-            r = Route(row[1])
-            sql_all_c = "SELECT c.node1,c.node2 from connection c WHERE route = '{}'".format(row[0])
+            r = Route(row[1],row[0])
+            sql_all_c = "SELECT c.id,c.node1,c.node2 from connection c WHERE route = '{}'".format(row[0])
             for c_row in self.db.execute(sql_all_c).fetchall():
                 sql_n = "SELECT * FROM stop WHERE id = '{}'"
-                r_n1 = self.db.execute(sql_n.format(c_row[0])).fetchone()
+                r_n1 = self.db.execute(sql_n.format(c_row[1])).fetchone()
                 n1 = TrainStopp(r_n1[1],r_n1[5],r_n1[6],r_n1[3],r_n1[4])
-                r_n2 = self.db.execute(sql_n.format(c_row[1])).fetchone()
+                r_n2 = self.db.execute(sql_n.format(c_row[2])).fetchone()
                 n2 = TrainStopp(r_n2[1],r_n2[5],r_n2[6],r_n2[3],r_n2[4])
-                c = Connection(n1,n2)
+                c = Connection(n1, n2, c_row[0],r)
                 r.connections.append(c)
             routes.append(r)
         return routes

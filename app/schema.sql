@@ -28,6 +28,7 @@ create table route (
 [route_name] text);
 
 create table connection (
+[id] integer primary key autoincrement not null,
 [node1] integer not null,
 [node2] integer not null,
 [route] integer not null,

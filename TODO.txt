@@ -8,3 +8,5 @@
 8. Ta bort rutt
 9. Utförligare profilsida
 10. Skapa ny rutt via karta
+11. Växla mellan engelska och svenska
+12. Flik-meny

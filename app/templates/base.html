@@ -1,10 +1,12 @@
 <!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{% endblock %} - Historails</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <nav>
   <h1><a href="{{ url_for('index') }}">Historails</a></h1>
-  <ul>
+  <ul id="auth">
     {% if g.user %}
       <li><a href="{{ url_for('historails.profile') }}">{{ g.user['username'] }}</a>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
@@ -15,7 +17,7 @@
   </ul>
 </nav>
 <nav>
-  <ul>
+  <ul id="nav-menu">
     <li><a href="{{ url_for('index') }}">Karta</a></li>
     {% if g.user %}
       <li><a href="{{ url_for('auth.addroute') }}">Ny rutt</a></li>

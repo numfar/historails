@@ -20,11 +20,11 @@ def index():
     trainroutes = crudder.get_all_routes()
     geojson = []
     for tr in trainroutes:
-        print(tr.getAsGeojson())
-        geojson.append(tr.getAsGeojson())
-    conn.close()
-    return render_template('index.html', token=current_app.config['ACCESS_TOKEN'],
-                           routes=json.dumps(geojson))
+        geojson.extend(tr.getAsGeojson())
+    return render_template('index.html',
+                           token=current_app.config['ACCESS_TOKEN'],
+                           routes=json.dumps(geojson),
+                           startYear=current_app.config['FROM_YEAR']);
 
 @bp.route('/profile')
 @login_required
