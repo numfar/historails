@@ -1,2 +1,2 @@
-# trainy-mc-trainface
+# Historails
 Historic railway map of Sweden
