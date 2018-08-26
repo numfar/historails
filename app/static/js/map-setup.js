@@ -15,7 +15,7 @@ function setSlider(){
     $( "#slider" ).slider( "value", $( "#year" ).val() );
 }
 
-function setupMap(route, token, startYear) {
+function setupSpinner(route, startYear, myLayer, mymap) {
     $( "#slider" ).slider({
 	value:1855,
 	min: startYear,
@@ -29,14 +29,25 @@ function setupMap(route, token, startYear) {
     });
     $( "#year" ).val( $( "#slider" ).slider( "value" ) );
     $( "#year" ).on('input', setSlider);
+}
 
-    var mymap = L.map('mapid').setView([58.3251172, 15.0710935], 6);
+function setupMapWithFilter(route, token) {
+    return setupMap(route, token, {onEachFeature: onEachFeature, filter:filterFeature}, [58.3251172, 15.0710935], 6);
+}
+
+function setupMapWithAdded(route, token) {
+    setupMap(route, token, {onEachFeature: onEachFeature}, getCenterOfRoute(route), 6);
+}
+
+function setupMap(route, token, options, center, zoom) {
+
+    var mymap = L.map('mapid').setView(center, zoom);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		maxZoom: 18,
 		id: 'mapbox.streets',
 		accessToken: token
     }).addTo(mymap);
-    var myLayer = L.geoJSON(route, {onEachFeature: onEachFeature, filter:filterFeature}).addTo(mymap);
-
+    var myLayer = L.geoJSON(route, options).addTo(mymap);
+    return [mymap, myLayer];
 }

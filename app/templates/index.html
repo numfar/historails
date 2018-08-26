@@ -10,13 +10,15 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='map-setup.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/geojson.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/map-setup.js') }}" ></script>
 <script type="text/javascript">
 $(document).ready(function() {
     var routey = JSON.parse({{ routes|tojson }});
     var accesstoken = '{{ token }}';
     var year = {{ startYear }};
-    setupMap(routey, accesstoken, year);
+    mappy = setupMapWithFilter(routey, accesstoken);
+    setupSpinner(routey, year, mappy[1], mappy[0]);
 });</script>
 <div id="slider"></div>
 <label for="year">Drifttaget vid (år):</label>

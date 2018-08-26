@@ -4,8 +4,24 @@
 
 <h3>Lägg till ny rutt</h3>
 <form method=post enctype=multipart/form-data>
-  <p><input type=file name=file>
-    <input type=submit value="Lägg till">
+    <p><input type=file name=file>
+      <input type=submit value="Lägg till">
 </form>
-
+{% if g.user and addtwo %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map-setup.js') }}" ></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var routey = JSON.parse({{ routes|tojson }});
+        var accesstoken = '{{ token }}';
+        var year = {{ startYear }};
+        setupMapWithAdded(routey, accesstoken);
+    });
+    </script>
+    <div id="mapid"></div>
+{% endif %}
 {% endblock %}
